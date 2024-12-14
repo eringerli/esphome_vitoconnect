@@ -1,23 +1,25 @@
 #pragma once
 
 #include "../vitoconnect_datapoint.h"
-#include "esphome/components/sensor/sensor.h"
+#include "esphome/components/number/number.h"
 
 namespace esphome {
   namespace vitoconnect {
 
-    class OPTOLINKSensor
-        : public sensor::Sensor
+    class OPTOLINKNumber
+        : public number::Number
         , public Datapoint {
 
     public:
-      OPTOLINKSensor();
-      ~OPTOLINKSensor();
+      OPTOLINKNumber();
+      ~OPTOLINKNumber();
 
       void
       decode( uint8_t* data, uint8_t length, Datapoint* dp = nullptr ) override;
       void encode( uint8_t* raw, uint8_t length, void* data ) override;
       void encode( uint8_t* raw, uint8_t length, float data );
+
+      virtual void control( float value ) override;
     };
 
   } // namespace vitoconnect

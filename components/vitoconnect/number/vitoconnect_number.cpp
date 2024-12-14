@@ -1,18 +1,20 @@
-#include "vitoconnect_sensor.h"
+#include "vitoconnect_number.h"
 
 namespace esphome {
   namespace vitoconnect {
 
-    OPTOLINKSensor::OPTOLINKSensor() {
+    static const char* TAG = "vitoconnect";
+
+    OPTOLINKNumber::OPTOLINKNumber() {
       // empty
     }
 
-    OPTOLINKSensor::~OPTOLINKSensor() {
+    OPTOLINKNumber::~OPTOLINKNumber() {
       // empty
     }
 
     void
-    OPTOLINKSensor::decode( uint8_t* data, uint8_t length, Datapoint* dp ) {
+    OPTOLINKNumber::decode( uint8_t* data, uint8_t length, Datapoint* dp ) {
       assert( length >= _length );
 
       if( !dp )
@@ -34,12 +36,12 @@ namespace esphome {
       }
     }
 
-    void OPTOLINKSensor::encode( uint8_t* raw, uint8_t length, void* data ) {
+    void OPTOLINKNumber::encode( uint8_t* raw, uint8_t length, void* data ) {
       float value = *reinterpret_cast< float* >( data );
       encode( raw, length, value );
     }
 
-    void OPTOLINKSensor::encode( uint8_t* raw, uint8_t length, float data ) {
+    void OPTOLINKNumber::encode( uint8_t* raw, uint8_t length, float data ) {
       assert( length >= _length );
 
       // Commonly temperature with factor /10 or /100
@@ -57,6 +59,10 @@ namespace esphome {
         raw[ 1 ]     = tmp >> 8;
         raw[ 0 ]     = tmp & 0xFF;
       }
+    }
+
+    void OPTOLINKNumber::control( float value ) {
+      ESP_LOGI( TAG, "OPTOLINKNumber::control" );
     }
 
   } // namespace vitoconnect

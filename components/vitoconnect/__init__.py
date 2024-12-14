@@ -3,7 +3,7 @@ import esphome.config_validation as cv
 from esphome.components import uart
 from esphome.const import CONF_ID, CONF_PROTOCOL, CONF_UPDATE_INTERVAL
 
-CODEOWNERS = ["@dannerph"]
+CODEOWNERS = ["@dannerph", "@eringerli"]
 
 DEPENDENCIES = ["uart"]
 
